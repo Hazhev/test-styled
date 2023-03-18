@@ -19,9 +19,15 @@ const UserStore = types.model('UserStore', {
     
 }))
 
+const RootStore = types.model('RootStore', {
+    user: types.optional(UserStore, {}),
+})
+
 
 
 export const [PersistentStoreProvider, usePersistentStore] = createPersistentStore(
-    UserStore,
-    {}
+    RootStore, {}, {}, {
+        logging: false,
+        writeDelay: 100,
+      }
 )

@@ -11,7 +11,9 @@ const Login = observer(() => {
     const [loginInput, setLoginInput] = useState();
     const [passwordInput, setPasswordInput] = useState();
 
-    const { addString } = usePersistentStore();
+    
+    const {user} = usePersistentStore();
+    const addString = user.addString;
 
     const submitForm = (e) => {
         e.preventDefault();
