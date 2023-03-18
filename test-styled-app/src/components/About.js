@@ -10,7 +10,7 @@ const About = observer(() => {
     return (
         <>
             <h1>About</h1>
-            <p>role: {user.role}</p>
+            <p>role: {`${user.role}`}</p>
             <p>refresh: {user.token.refresh}</p>
             <p>access: {user.token.access}</p>
 

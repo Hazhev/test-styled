@@ -2,8 +2,16 @@ import { useState } from "react";
 import styled from "styled-components";
 import Logo from "../img/logo.svg"
 import { Link, useNavigate } from "react-router-dom";
+import { usePersistentStore } from '../store';
+import { observer } from "mobx-react-lite";
 
-const Header = () => {
+const Header = observer(() => {
+    const {user: {
+        role
+    }} = usePersistentStore();
+    const {user:{
+        removeAll
+    }} = usePersistentStore();
 
     const [modalState, setModalState] = useState(false);
     const navigate = useNavigate();
@@ -14,11 +22,11 @@ const Header = () => {
                 <LogoMain src={Logo} alt='logo' onClick={() => navigate('/')}/>
                 <WrapperBase>
                     <StyledLink to={'/'}>home</StyledLink>
-                    <StyledLink to={'/about'}>about</StyledLink>
+                    {role && (<StyledLink to={'/about'}>about</StyledLink>)}
+                    {role && (<ButtonExit onClick={removeAll}>Выход</ButtonExit>)}
                 </WrapperBase>
-                <Burger onClick={() => {
-                    setModalState(!modalState)
-                }}>
+
+                <Burger onClick={() => {setModalState(!modalState)}}>
                     <SpanBurger />
                 </Burger>
             </HeaderDiv>
@@ -26,11 +34,11 @@ const Header = () => {
 
             <Modal modalState={modalState}>
                 <StyledLink to={'/'} onClick={() => setModalState(!modalState)} >home</StyledLink>
-                <StyledLink to={'/about'} onClick={() => setModalState(!modalState)}>about</StyledLink>
+                {role && (<StyledLink to={'/about'} onClick={() => setModalState(!modalState)}>about</StyledLink>)}
             </Modal>
         </>
     )
-}
+})
 
 
 const HeaderDiv = styled.header`
@@ -53,6 +61,12 @@ height: 36px;
 position: absolute;
 left: 18px;
 cursor: pointer;
+`;
+
+const ButtonExit = styled.button`
+background: #68A691;
+border-radius: 5px;
+text-transform: uppercase;
 `;
 
 const WrapperBase = styled.div`

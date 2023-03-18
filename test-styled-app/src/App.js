@@ -10,6 +10,7 @@ import styled from 'styled-components';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import About from './components/About';
+import RequireAuth from './hoc/RequireAuth';
 
 
 
@@ -21,8 +22,12 @@ const App = () => {
         <Header />
         <Container>
           <Routes>
-            <Route path='/' element={<Login/>}/>
-            <Route path='/about' element={<About/>}/>
+            <Route path='/' element={<Login />} />
+            <Route path='/about' element={
+              <RequireAuth>
+                <About />
+              </RequireAuth>
+            } />
           </Routes>
         </Container>
         <Footer />

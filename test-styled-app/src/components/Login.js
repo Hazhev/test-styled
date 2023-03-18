@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 
 const Login = observer(() => {
     const navigate = useNavigate();
+
     const [loginInput, setLoginInput] = useState();
     const [passwordInput, setPasswordInput] = useState();
 
@@ -26,7 +27,7 @@ const Login = observer(() => {
 
     return (
         <>
-            <TitleBig>Welcome.</TitleBig>
+            <TitleBig>Welcome. </TitleBig>
 
             <TitleMini>Hello, nice to see you again! </TitleMini>
 
@@ -106,6 +107,7 @@ color: #68A691;
 
 const Input = styled.input`
 /* width: 489px; */
+padding: 0 10px;
 width: 100%;
 height: 53px;
 background: #F4F4F9;

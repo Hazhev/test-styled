@@ -1,4 +1,4 @@
-import {types} from 'mobx-state-tree';
+import { types } from 'mobx-state-tree';
 import createPersistentStore from 'mst-persistent-store';
 
 const TokenStore = types.model('TokenStore', {
@@ -7,17 +7,23 @@ const TokenStore = types.model('TokenStore', {
 })
 
 const UserStore = types.model('UserStore', {
-    role: types.optional(types.string, ''),
+    role: types.optional(types.boolean, false),
     token: types.optional(TokenStore, {}),
 })
-.actions((self) => ({
-    addString() {
-        self.role = 'visitor';
-        self.token.refresh = 'yes';
-        self.token.access = 'good';
-    },
-    
-}))
+    .actions((self) => ({
+        addString() {
+            self.role = true;
+            self.token.access = 'yes';
+            self.token.refresh = 'yes';
+        },
+        removeAll() {
+            self.role = false;
+            self.token.refresh = '';
+            self.token.access = '';
+        }
+
+
+    }))
 
 const RootStore = types.model('RootStore', {
     user: types.optional(UserStore, {}),
@@ -27,7 +33,7 @@ const RootStore = types.model('RootStore', {
 
 export const [PersistentStoreProvider, usePersistentStore] = createPersistentStore(
     RootStore, {}, {}, {
-        logging: false,
-        writeDelay: 100,
-      }
+    logging: false,
+    writeDelay: 100,
+}
 )
